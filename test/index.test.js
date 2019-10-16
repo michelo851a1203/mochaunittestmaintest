@@ -48,3 +48,21 @@ describe('測試addition', () => {
         console.log(`執行次數 : ${callback.callCount}`);
     })
 })
+
+// 了解 settimeout 利用 useFakeTimers()
+// 有必要深入了解 chai
+describe('測試 Timer',() => {
+    it('timer status',() => {
+        // 這裡有一個好用的 
+        // sinon.useFakeTimers() 是用來測試時間的。
+        const clock = sinon.useFakeTimers()
+        const logSpy = sinon.spy(console,'log')
+        
+        testMethod.asyncfunc()
+        expect(logSpy).to.not.be.all
+        clock.tick(1000)
+        expect(logSpy).to.be.all
+        logSpy.restore()
+        clock.restore()
+    })
+})
