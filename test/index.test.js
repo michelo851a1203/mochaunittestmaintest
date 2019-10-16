@@ -1,5 +1,6 @@
 const expect = require('chai').expect
-const addition = require('../index.js')
+const sinon = require('sinon')
+const testMethod = require('../index.js')
 
 // 使用這個東西要用 npm install mocha 進行測試
 // 則這裡的 js 有一些特殊的東西可以使用。
@@ -33,11 +34,17 @@ describe('測試addition', () => {
         // if (addition('12', '13') !== 25) {
         //     throw new Error('兩數相加出問題，皆數字有問題')
         // }
-
         // assertion 斷言式。
-        expect(addition(12, 13)).to.be.equal(25)
-        expect(addition(12, '13')).to.be.equal(25)
-        expect(addition('12', 13)).to.be.equal(25)
-        expect(addition('12', '13')).to.be.equal(25)
+        expect(testMethod.addition(12, 13)).to.be.equal(25)
+        expect(testMethod.addition(12, '13')).to.be.equal(25)
+        expect(testMethod.addition('12', 13)).to.be.equal(25)
+        expect(testMethod.addition('12', '13')).to.be.equal(25)
+    })
+
+    it('測試 spy',() => {
+        const test = ['12', '13']
+        const callback = sinon.spy()
+        testMethod.addition(test[0], test[1], callback)
+        console.log(`執行次數 : ${callback.callCount}`);
     })
 })
